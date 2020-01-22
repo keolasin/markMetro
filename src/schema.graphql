@@ -1,30 +1,31 @@
 type Query {
-    
+    getVehicleById(id: ID!): Vehicle
+    getVehicles(filter: String, skip: Int, first: Int, orderBy: VehicleOrderByInput): [Vehicle]
 }
 
 type Mutation {
-    
-}
-
-type Subscription {
-
+    createVehicle(vehicleID: String, route: String, predictable: Boolean, run: String, latitude: String, longitude: String, heading: Int, timeSinceReport: Int): Vehicle
 }
 
 type Vehicle {
     id: ID!
-    vehicle_ID: Int
-    route: Route
+    vehicleID: String
+    route: String
     predictable: Boolean
-    run: String!
-    latitude: String
-    longitude: String
+    runID: String
+    latitude: Float
+    longitude: Float
     heading: Int
-    seconds_since_report: Int
-    serverTime: String
+    timeSinceReport: Int
 }
 
-type Route {
-    id: ID!
-    name: String!
-    vehicles: [Vehicle!]
+enum VehicleOrderByInput {
+    vehicleID_ASC
+    vehicleID_DESC
+    heading_ASC
+    heading_DESC
+    timeSinceReport_ASC
+    timeSinceReport_DESC
+    createdAt_ASC
+    createdAt_DESC
 }
