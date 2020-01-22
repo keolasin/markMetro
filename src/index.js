@@ -25,7 +25,7 @@ const server = new GraphQLServer({
 server.start(() => {
     console.log(`Server is up and running on http://localhost:4000`);
 
-    console.log(`Beginning call to la metro api`);
+    console.log(`This server will collect data from the LA metro API and store it`);
     apiRequester();
-    console.log(`Ending function`);
+    console.log(`Data collection complete.`);
 });

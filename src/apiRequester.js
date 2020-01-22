@@ -1,8 +1,7 @@
 const axios = require('axios');
-const dataSaver = require('./dataSaver');
+const writer = require('./writer');
 
 function apiRequester(){
-    console.log('function called');
     axios({
         method: "get",
         url: `https://api.metro.net/agencies/lametro/routes/20/vehicles/`
@@ -20,6 +19,9 @@ function apiRequester(){
     .catch(error => {
         console.log('Request error to metro API!', error);
     });
+    setInterval(() => {
+        console.log('hello!');
+    }, 2000)
 }
 
 module.exports = {
