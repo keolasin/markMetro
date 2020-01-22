@@ -1,28 +1,31 @@
 const axios = require('axios');
-const writer = require('./writer');
 
-function apiRequester(){
+let routeList = [2, 4, 10, 20];
+let metro = 'lametro';
+
+function apiRequester(routes, agency){
+  // loop through all the provided routes for specific metro agency
+  routes.forEach(route => {
+    // make call via axios to api for specific route/agency
     axios({
-        method: "get",
-        url: `https://api.metro.net/agencies/lametro/routes/20/vehicles/`
+      method: "GET",
+      url: `https://api.metro.net/agencies/${agency}/routes/${route}/vehicles/`
     })
     .then( res => {
-        console.log(res);
-        if (res.status === 200){
-            console.log('Success!');
-            console.log(res.data.items);
-        }
-        else {
-            console.log(res.status);
-        }
+      // store that route info in our database
+      console.log(`\nCalled route ${route} with items: `);
+      console.log(res.data.items, '\n');
     })
-    .catch(error => {
-        console.log('Request error to metro API!', error);
+    // log errors
+    .catch( error => {
+      console.log('Request error: ', error);
     });
-    setInterval(() => {
-        console.log('hello!');
-    }, 2000)
+  });
 }
+
+let interval = setInterval(()=> {
+    requestTimer(routeList, metro)
+  }, 60*1000) // 1 minute requests
 
 module.exports = {
     apiRequester
