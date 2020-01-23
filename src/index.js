@@ -1,6 +1,9 @@
 const { GraphQLServer } = require('graphql-yoga');
 const { prisma } = require('./generated/prisma-client');
-const { apiRequester } = require('./apiRequester');
+const { routeRequester } = require('./routeRequester');
+
+// scheduling
+const cron = require('node-cron');
 
 // resolvers
 const Query = require('./resolvers/Query');
@@ -24,8 +27,12 @@ const server = new GraphQLServer({
 
 server.start(() => {
     console.log(`Server is up and running on http://localhost:4000`);
-
-    console.log(`This server will collect data from the LA metro API and store it`);
-    apiRequester();
+    console.log(`This server will collect vehicle location data from a given metro and list of routes and store it`);
+    
+    // using cron to make a request every minute
+    cron.schedule("* * * * *", () => {
+      // making requests to the provided metro and array of desired routes
+      routeRequester(routeList, metro);
+    });
     console.log(`Data collection complete.`);
 });
