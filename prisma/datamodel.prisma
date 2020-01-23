@@ -17,5 +17,5 @@ type Route {
     id: ID! @id
     createdAt: DateTime! @createdAt
     routeID: String
-    vehicles: [Vehicle] @relation(onDelete: CASCADE)
+    vehicles: [Vehicle]
 }

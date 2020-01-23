@@ -1,5 +1,5 @@
 # The HTTP endpoint for your Prisma API
-endpoint: 'http://localhost:4467'
+endpoint: https://powerful-ridge-68271.herokuapp.com
 
 # Points to the file that contains your datamodel
 datamodel: datamodel.prisma
@@ -8,7 +8,3 @@ datamodel: datamodel.prisma
 generate:
   - generator: javascript-client
     output: ../src/generated/prisma-client
-
-hooks:
-  post-deploy:
-    - prisma generate
