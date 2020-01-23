@@ -159,23 +159,23 @@ export type VehicleOrderByInput =
   | "heading_DESC"
   | "timeSinceReport_ASC"
   | "timeSinceReport_DESC"
-  | "serverTime_ASC"
-  | "serverTime_DESC"
-  | "data_ASC"
-  | "data_DESC";
+  | "dayOfWeek_ASC"
+  | "dayOfWeek_DESC"
+  | "dataLoad_ASC"
+  | "dataLoad_DESC";
 
 export type RouteOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
-  | "name_ASC"
-  | "name_DESC";
+  | "routeID_ASC"
+  | "routeID_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export interface RouteUpdateInput {
-  name?: Maybe<String>;
+  routeID?: Maybe<String>;
   vehicles?: Maybe<VehicleUpdateManyWithoutRouteInput>;
 }
 
@@ -183,16 +183,9 @@ export type RouteWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface VehicleUpdateWithoutRouteDataInput {
-  vehicleID?: Maybe<String>;
-  predictable?: Maybe<Boolean>;
-  runID?: Maybe<String>;
-  latitude?: Maybe<String>;
-  longitude?: Maybe<String>;
-  heading?: Maybe<Int>;
-  timeSinceReport?: Maybe<Int>;
-  serverTime?: Maybe<String>;
-  data?: Maybe<Json>;
+export interface VehicleUpdateWithWhereUniqueWithoutRouteInput {
+  where: VehicleWhereUniqueInput;
+  data: VehicleUpdateWithoutRouteDataInput;
 }
 
 export interface VehicleWhereInput {
@@ -249,34 +242,22 @@ export interface VehicleWhereInput {
   runID_not_starts_with?: Maybe<String>;
   runID_ends_with?: Maybe<String>;
   runID_not_ends_with?: Maybe<String>;
-  latitude?: Maybe<String>;
-  latitude_not?: Maybe<String>;
-  latitude_in?: Maybe<String[] | String>;
-  latitude_not_in?: Maybe<String[] | String>;
-  latitude_lt?: Maybe<String>;
-  latitude_lte?: Maybe<String>;
-  latitude_gt?: Maybe<String>;
-  latitude_gte?: Maybe<String>;
-  latitude_contains?: Maybe<String>;
-  latitude_not_contains?: Maybe<String>;
-  latitude_starts_with?: Maybe<String>;
-  latitude_not_starts_with?: Maybe<String>;
-  latitude_ends_with?: Maybe<String>;
-  latitude_not_ends_with?: Maybe<String>;
-  longitude?: Maybe<String>;
-  longitude_not?: Maybe<String>;
-  longitude_in?: Maybe<String[] | String>;
-  longitude_not_in?: Maybe<String[] | String>;
-  longitude_lt?: Maybe<String>;
-  longitude_lte?: Maybe<String>;
-  longitude_gt?: Maybe<String>;
-  longitude_gte?: Maybe<String>;
-  longitude_contains?: Maybe<String>;
-  longitude_not_contains?: Maybe<String>;
-  longitude_starts_with?: Maybe<String>;
-  longitude_not_starts_with?: Maybe<String>;
-  longitude_ends_with?: Maybe<String>;
-  longitude_not_ends_with?: Maybe<String>;
+  latitude?: Maybe<Float>;
+  latitude_not?: Maybe<Float>;
+  latitude_in?: Maybe<Float[] | Float>;
+  latitude_not_in?: Maybe<Float[] | Float>;
+  latitude_lt?: Maybe<Float>;
+  latitude_lte?: Maybe<Float>;
+  latitude_gt?: Maybe<Float>;
+  latitude_gte?: Maybe<Float>;
+  longitude?: Maybe<Float>;
+  longitude_not?: Maybe<Float>;
+  longitude_in?: Maybe<Float[] | Float>;
+  longitude_not_in?: Maybe<Float[] | Float>;
+  longitude_lt?: Maybe<Float>;
+  longitude_lte?: Maybe<Float>;
+  longitude_gt?: Maybe<Float>;
+  longitude_gte?: Maybe<Float>;
   heading?: Maybe<Int>;
   heading_not?: Maybe<Int>;
   heading_in?: Maybe<Int[] | Int>;
@@ -293,20 +274,20 @@ export interface VehicleWhereInput {
   timeSinceReport_lte?: Maybe<Int>;
   timeSinceReport_gt?: Maybe<Int>;
   timeSinceReport_gte?: Maybe<Int>;
-  serverTime?: Maybe<String>;
-  serverTime_not?: Maybe<String>;
-  serverTime_in?: Maybe<String[] | String>;
-  serverTime_not_in?: Maybe<String[] | String>;
-  serverTime_lt?: Maybe<String>;
-  serverTime_lte?: Maybe<String>;
-  serverTime_gt?: Maybe<String>;
-  serverTime_gte?: Maybe<String>;
-  serverTime_contains?: Maybe<String>;
-  serverTime_not_contains?: Maybe<String>;
-  serverTime_starts_with?: Maybe<String>;
-  serverTime_not_starts_with?: Maybe<String>;
-  serverTime_ends_with?: Maybe<String>;
-  serverTime_not_ends_with?: Maybe<String>;
+  dayOfWeek?: Maybe<String>;
+  dayOfWeek_not?: Maybe<String>;
+  dayOfWeek_in?: Maybe<String[] | String>;
+  dayOfWeek_not_in?: Maybe<String[] | String>;
+  dayOfWeek_lt?: Maybe<String>;
+  dayOfWeek_lte?: Maybe<String>;
+  dayOfWeek_gt?: Maybe<String>;
+  dayOfWeek_gte?: Maybe<String>;
+  dayOfWeek_contains?: Maybe<String>;
+  dayOfWeek_not_contains?: Maybe<String>;
+  dayOfWeek_starts_with?: Maybe<String>;
+  dayOfWeek_not_starts_with?: Maybe<String>;
+  dayOfWeek_ends_with?: Maybe<String>;
+  dayOfWeek_not_ends_with?: Maybe<String>;
   AND?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
   OR?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
   NOT?: Maybe<VehicleWhereInput[] | VehicleWhereInput>;
@@ -318,12 +299,118 @@ export interface VehicleCreateInput {
   route?: Maybe<RouteCreateOneWithoutVehiclesInput>;
   predictable?: Maybe<Boolean>;
   runID?: Maybe<String>;
-  latitude?: Maybe<String>;
-  longitude?: Maybe<String>;
+  latitude?: Maybe<Float>;
+  longitude?: Maybe<Float>;
   heading?: Maybe<Int>;
   timeSinceReport?: Maybe<Int>;
-  serverTime?: Maybe<String>;
-  data?: Maybe<Json>;
+  dayOfWeek?: Maybe<String>;
+  dataLoad?: Maybe<Json>;
+}
+
+export interface VehicleUpsertWithWhereUniqueWithoutRouteInput {
+  where: VehicleWhereUniqueInput;
+  update: VehicleUpdateWithoutRouteDataInput;
+  create: VehicleCreateWithoutRouteInput;
+}
+
+export interface RouteUpdateManyMutationInput {
+  routeID?: Maybe<String>;
+}
+
+export interface VehicleUpdateWithoutRouteDataInput {
+  vehicleID?: Maybe<String>;
+  predictable?: Maybe<Boolean>;
+  runID?: Maybe<String>;
+  latitude?: Maybe<Float>;
+  longitude?: Maybe<Float>;
+  heading?: Maybe<Int>;
+  timeSinceReport?: Maybe<Int>;
+  dayOfWeek?: Maybe<String>;
+  dataLoad?: Maybe<Json>;
+}
+
+export interface VehicleUpdateManyDataInput {
+  vehicleID?: Maybe<String>;
+  predictable?: Maybe<Boolean>;
+  runID?: Maybe<String>;
+  latitude?: Maybe<Float>;
+  longitude?: Maybe<Float>;
+  heading?: Maybe<Int>;
+  timeSinceReport?: Maybe<Int>;
+  dayOfWeek?: Maybe<String>;
+  dataLoad?: Maybe<Json>;
+}
+
+export interface RouteSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<RouteWhereInput>;
+  AND?: Maybe<RouteSubscriptionWhereInput[] | RouteSubscriptionWhereInput>;
+  OR?: Maybe<RouteSubscriptionWhereInput[] | RouteSubscriptionWhereInput>;
+  NOT?: Maybe<RouteSubscriptionWhereInput[] | RouteSubscriptionWhereInput>;
+}
+
+export interface RouteUpsertWithoutVehiclesInput {
+  update: RouteUpdateWithoutVehiclesDataInput;
+  create: RouteCreateWithoutVehiclesInput;
+}
+
+export interface RouteUpdateOneWithoutVehiclesInput {
+  create?: Maybe<RouteCreateWithoutVehiclesInput>;
+  update?: Maybe<RouteUpdateWithoutVehiclesDataInput>;
+  upsert?: Maybe<RouteUpsertWithoutVehiclesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<RouteWhereUniqueInput>;
+}
+
+export interface RouteCreateInput {
+  id?: Maybe<ID_Input>;
+  routeID?: Maybe<String>;
+  vehicles?: Maybe<VehicleCreateManyWithoutRouteInput>;
+}
+
+export interface RouteCreateWithoutVehiclesInput {
+  id?: Maybe<ID_Input>;
+  routeID?: Maybe<String>;
+}
+
+export interface VehicleCreateManyWithoutRouteInput {
+  create?: Maybe<
+    VehicleCreateWithoutRouteInput[] | VehicleCreateWithoutRouteInput
+  >;
+  connect?: Maybe<VehicleWhereUniqueInput[] | VehicleWhereUniqueInput>;
+}
+
+export type VehicleWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface VehicleCreateWithoutRouteInput {
+  id?: Maybe<ID_Input>;
+  vehicleID?: Maybe<String>;
+  predictable?: Maybe<Boolean>;
+  runID?: Maybe<String>;
+  latitude?: Maybe<Float>;
+  longitude?: Maybe<Float>;
+  heading?: Maybe<Int>;
+  timeSinceReport?: Maybe<Int>;
+  dayOfWeek?: Maybe<String>;
+  dataLoad?: Maybe<Json>;
+}
+
+export interface VehicleUpdateManyMutationInput {
+  vehicleID?: Maybe<String>;
+  predictable?: Maybe<Boolean>;
+  runID?: Maybe<String>;
+  latitude?: Maybe<Float>;
+  longitude?: Maybe<Float>;
+  heading?: Maybe<Int>;
+  timeSinceReport?: Maybe<Int>;
+  dayOfWeek?: Maybe<String>;
+  dataLoad?: Maybe<Json>;
 }
 
 export interface VehicleScalarWhereInput {
@@ -379,34 +466,22 @@ export interface VehicleScalarWhereInput {
   runID_not_starts_with?: Maybe<String>;
   runID_ends_with?: Maybe<String>;
   runID_not_ends_with?: Maybe<String>;
-  latitude?: Maybe<String>;
-  latitude_not?: Maybe<String>;
-  latitude_in?: Maybe<String[] | String>;
-  latitude_not_in?: Maybe<String[] | String>;
-  latitude_lt?: Maybe<String>;
-  latitude_lte?: Maybe<String>;
-  latitude_gt?: Maybe<String>;
-  latitude_gte?: Maybe<String>;
-  latitude_contains?: Maybe<String>;
-  latitude_not_contains?: Maybe<String>;
-  latitude_starts_with?: Maybe<String>;
-  latitude_not_starts_with?: Maybe<String>;
-  latitude_ends_with?: Maybe<String>;
-  latitude_not_ends_with?: Maybe<String>;
-  longitude?: Maybe<String>;
-  longitude_not?: Maybe<String>;
-  longitude_in?: Maybe<String[] | String>;
-  longitude_not_in?: Maybe<String[] | String>;
-  longitude_lt?: Maybe<String>;
-  longitude_lte?: Maybe<String>;
-  longitude_gt?: Maybe<String>;
-  longitude_gte?: Maybe<String>;
-  longitude_contains?: Maybe<String>;
-  longitude_not_contains?: Maybe<String>;
-  longitude_starts_with?: Maybe<String>;
-  longitude_not_starts_with?: Maybe<String>;
-  longitude_ends_with?: Maybe<String>;
-  longitude_not_ends_with?: Maybe<String>;
+  latitude?: Maybe<Float>;
+  latitude_not?: Maybe<Float>;
+  latitude_in?: Maybe<Float[] | Float>;
+  latitude_not_in?: Maybe<Float[] | Float>;
+  latitude_lt?: Maybe<Float>;
+  latitude_lte?: Maybe<Float>;
+  latitude_gt?: Maybe<Float>;
+  latitude_gte?: Maybe<Float>;
+  longitude?: Maybe<Float>;
+  longitude_not?: Maybe<Float>;
+  longitude_in?: Maybe<Float[] | Float>;
+  longitude_not_in?: Maybe<Float[] | Float>;
+  longitude_lt?: Maybe<Float>;
+  longitude_lte?: Maybe<Float>;
+  longitude_gt?: Maybe<Float>;
+  longitude_gte?: Maybe<Float>;
   heading?: Maybe<Int>;
   heading_not?: Maybe<Int>;
   heading_in?: Maybe<Int[] | Int>;
@@ -423,123 +498,23 @@ export interface VehicleScalarWhereInput {
   timeSinceReport_lte?: Maybe<Int>;
   timeSinceReport_gt?: Maybe<Int>;
   timeSinceReport_gte?: Maybe<Int>;
-  serverTime?: Maybe<String>;
-  serverTime_not?: Maybe<String>;
-  serverTime_in?: Maybe<String[] | String>;
-  serverTime_not_in?: Maybe<String[] | String>;
-  serverTime_lt?: Maybe<String>;
-  serverTime_lte?: Maybe<String>;
-  serverTime_gt?: Maybe<String>;
-  serverTime_gte?: Maybe<String>;
-  serverTime_contains?: Maybe<String>;
-  serverTime_not_contains?: Maybe<String>;
-  serverTime_starts_with?: Maybe<String>;
-  serverTime_not_starts_with?: Maybe<String>;
-  serverTime_ends_with?: Maybe<String>;
-  serverTime_not_ends_with?: Maybe<String>;
+  dayOfWeek?: Maybe<String>;
+  dayOfWeek_not?: Maybe<String>;
+  dayOfWeek_in?: Maybe<String[] | String>;
+  dayOfWeek_not_in?: Maybe<String[] | String>;
+  dayOfWeek_lt?: Maybe<String>;
+  dayOfWeek_lte?: Maybe<String>;
+  dayOfWeek_gt?: Maybe<String>;
+  dayOfWeek_gte?: Maybe<String>;
+  dayOfWeek_contains?: Maybe<String>;
+  dayOfWeek_not_contains?: Maybe<String>;
+  dayOfWeek_starts_with?: Maybe<String>;
+  dayOfWeek_not_starts_with?: Maybe<String>;
+  dayOfWeek_ends_with?: Maybe<String>;
+  dayOfWeek_not_ends_with?: Maybe<String>;
   AND?: Maybe<VehicleScalarWhereInput[] | VehicleScalarWhereInput>;
   OR?: Maybe<VehicleScalarWhereInput[] | VehicleScalarWhereInput>;
   NOT?: Maybe<VehicleScalarWhereInput[] | VehicleScalarWhereInput>;
-}
-
-export interface RouteUpdateManyMutationInput {
-  name?: Maybe<String>;
-}
-
-export interface VehicleUpsertWithWhereUniqueWithoutRouteInput {
-  where: VehicleWhereUniqueInput;
-  update: VehicleUpdateWithoutRouteDataInput;
-  create: VehicleCreateWithoutRouteInput;
-}
-
-export interface RouteSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<RouteWhereInput>;
-  AND?: Maybe<RouteSubscriptionWhereInput[] | RouteSubscriptionWhereInput>;
-  OR?: Maybe<RouteSubscriptionWhereInput[] | RouteSubscriptionWhereInput>;
-  NOT?: Maybe<RouteSubscriptionWhereInput[] | RouteSubscriptionWhereInput>;
-}
-
-export interface RouteUpsertWithoutVehiclesInput {
-  update: RouteUpdateWithoutVehiclesDataInput;
-  create: RouteCreateWithoutVehiclesInput;
-}
-
-export interface RouteCreateInput {
-  id?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  vehicles?: Maybe<VehicleCreateManyWithoutRouteInput>;
-}
-
-export interface RouteUpdateOneWithoutVehiclesInput {
-  create?: Maybe<RouteCreateWithoutVehiclesInput>;
-  update?: Maybe<RouteUpdateWithoutVehiclesDataInput>;
-  upsert?: Maybe<RouteUpsertWithoutVehiclesInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
-  connect?: Maybe<RouteWhereUniqueInput>;
-}
-
-export interface VehicleCreateManyWithoutRouteInput {
-  create?: Maybe<
-    VehicleCreateWithoutRouteInput[] | VehicleCreateWithoutRouteInput
-  >;
-  connect?: Maybe<VehicleWhereUniqueInput[] | VehicleWhereUniqueInput>;
-}
-
-export interface RouteCreateWithoutVehiclesInput {
-  id?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-}
-
-export interface VehicleCreateWithoutRouteInput {
-  id?: Maybe<ID_Input>;
-  vehicleID?: Maybe<String>;
-  predictable?: Maybe<Boolean>;
-  runID?: Maybe<String>;
-  latitude?: Maybe<String>;
-  longitude?: Maybe<String>;
-  heading?: Maybe<Int>;
-  timeSinceReport?: Maybe<Int>;
-  serverTime?: Maybe<String>;
-  data?: Maybe<Json>;
-}
-
-export interface RouteCreateOneWithoutVehiclesInput {
-  create?: Maybe<RouteCreateWithoutVehiclesInput>;
-  connect?: Maybe<RouteWhereUniqueInput>;
-}
-
-export interface VehicleUpdateManyDataInput {
-  vehicleID?: Maybe<String>;
-  predictable?: Maybe<Boolean>;
-  runID?: Maybe<String>;
-  latitude?: Maybe<String>;
-  longitude?: Maybe<String>;
-  heading?: Maybe<Int>;
-  timeSinceReport?: Maybe<Int>;
-  serverTime?: Maybe<String>;
-  data?: Maybe<Json>;
-}
-
-export interface VehicleUpdateManyMutationInput {
-  vehicleID?: Maybe<String>;
-  predictable?: Maybe<Boolean>;
-  runID?: Maybe<String>;
-  latitude?: Maybe<String>;
-  longitude?: Maybe<String>;
-  heading?: Maybe<Int>;
-  timeSinceReport?: Maybe<Int>;
-  serverTime?: Maybe<String>;
-  data?: Maybe<Json>;
-}
-
-export interface VehicleUpdateManyWithWhereNestedInput {
-  where: VehicleScalarWhereInput;
-  data: VehicleUpdateManyDataInput;
 }
 
 export interface RouteWhereInput {
@@ -565,31 +540,26 @@ export interface RouteWhereInput {
   createdAt_lte?: Maybe<DateTimeInput>;
   createdAt_gt?: Maybe<DateTimeInput>;
   createdAt_gte?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
+  routeID?: Maybe<String>;
+  routeID_not?: Maybe<String>;
+  routeID_in?: Maybe<String[] | String>;
+  routeID_not_in?: Maybe<String[] | String>;
+  routeID_lt?: Maybe<String>;
+  routeID_lte?: Maybe<String>;
+  routeID_gt?: Maybe<String>;
+  routeID_gte?: Maybe<String>;
+  routeID_contains?: Maybe<String>;
+  routeID_not_contains?: Maybe<String>;
+  routeID_starts_with?: Maybe<String>;
+  routeID_not_starts_with?: Maybe<String>;
+  routeID_ends_with?: Maybe<String>;
+  routeID_not_ends_with?: Maybe<String>;
   vehicles_every?: Maybe<VehicleWhereInput>;
   vehicles_some?: Maybe<VehicleWhereInput>;
   vehicles_none?: Maybe<VehicleWhereInput>;
   AND?: Maybe<RouteWhereInput[] | RouteWhereInput>;
   OR?: Maybe<RouteWhereInput[] | RouteWhereInput>;
   NOT?: Maybe<RouteWhereInput[] | RouteWhereInput>;
-}
-
-export interface VehicleUpdateWithWhereUniqueWithoutRouteInput {
-  where: VehicleWhereUniqueInput;
-  data: VehicleUpdateWithoutRouteDataInput;
 }
 
 export interface VehicleUpdateManyWithoutRouteInput {
@@ -615,8 +585,13 @@ export interface VehicleUpdateManyWithoutRouteInput {
   >;
 }
 
+export interface VehicleUpdateManyWithWhereNestedInput {
+  where: VehicleScalarWhereInput;
+  data: VehicleUpdateManyDataInput;
+}
+
 export interface RouteUpdateWithoutVehiclesDataInput {
-  name?: Maybe<String>;
+  routeID?: Maybe<String>;
 }
 
 export interface VehicleSubscriptionWhereInput {
@@ -630,21 +605,22 @@ export interface VehicleSubscriptionWhereInput {
   NOT?: Maybe<VehicleSubscriptionWhereInput[] | VehicleSubscriptionWhereInput>;
 }
 
-export type VehicleWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
+export interface RouteCreateOneWithoutVehiclesInput {
+  create?: Maybe<RouteCreateWithoutVehiclesInput>;
+  connect?: Maybe<RouteWhereUniqueInput>;
+}
 
 export interface VehicleUpdateInput {
   vehicleID?: Maybe<String>;
   route?: Maybe<RouteUpdateOneWithoutVehiclesInput>;
   predictable?: Maybe<Boolean>;
   runID?: Maybe<String>;
-  latitude?: Maybe<String>;
-  longitude?: Maybe<String>;
+  latitude?: Maybe<Float>;
+  longitude?: Maybe<Float>;
   heading?: Maybe<Int>;
   timeSinceReport?: Maybe<Int>;
-  serverTime?: Maybe<String>;
-  data?: Maybe<Json>;
+  dayOfWeek?: Maybe<String>;
+  dataLoad?: Maybe<Json>;
 }
 
 export interface NodeNode {
@@ -657,12 +633,12 @@ export interface VehiclePreviousValues {
   vehicleID?: String;
   predictable?: Boolean;
   runID?: String;
-  latitude?: String;
-  longitude?: String;
+  latitude?: Float;
+  longitude?: Float;
   heading?: Int;
   timeSinceReport?: Int;
-  serverTime?: String;
-  data?: Json;
+  dayOfWeek?: String;
+  dataLoad?: Json;
 }
 
 export interface VehiclePreviousValuesPromise
@@ -673,12 +649,12 @@ export interface VehiclePreviousValuesPromise
   vehicleID: () => Promise<String>;
   predictable: () => Promise<Boolean>;
   runID: () => Promise<String>;
-  latitude: () => Promise<String>;
-  longitude: () => Promise<String>;
+  latitude: () => Promise<Float>;
+  longitude: () => Promise<Float>;
   heading: () => Promise<Int>;
   timeSinceReport: () => Promise<Int>;
-  serverTime: () => Promise<String>;
-  data: () => Promise<Json>;
+  dayOfWeek: () => Promise<String>;
+  dataLoad: () => Promise<Json>;
 }
 
 export interface VehiclePreviousValuesSubscription
@@ -689,12 +665,12 @@ export interface VehiclePreviousValuesSubscription
   vehicleID: () => Promise<AsyncIterator<String>>;
   predictable: () => Promise<AsyncIterator<Boolean>>;
   runID: () => Promise<AsyncIterator<String>>;
-  latitude: () => Promise<AsyncIterator<String>>;
-  longitude: () => Promise<AsyncIterator<String>>;
+  latitude: () => Promise<AsyncIterator<Float>>;
+  longitude: () => Promise<AsyncIterator<Float>>;
   heading: () => Promise<AsyncIterator<Int>>;
   timeSinceReport: () => Promise<AsyncIterator<Int>>;
-  serverTime: () => Promise<AsyncIterator<String>>;
-  data: () => Promise<AsyncIterator<Json>>;
+  dayOfWeek: () => Promise<AsyncIterator<String>>;
+  dataLoad: () => Promise<AsyncIterator<Json>>;
 }
 
 export interface AggregateRoute {
@@ -719,12 +695,12 @@ export interface Vehicle {
   vehicleID?: String;
   predictable?: Boolean;
   runID?: String;
-  latitude?: String;
-  longitude?: String;
+  latitude?: Float;
+  longitude?: Float;
   heading?: Int;
   timeSinceReport?: Int;
-  serverTime?: String;
-  data?: Json;
+  dayOfWeek?: String;
+  dataLoad?: Json;
 }
 
 export interface VehiclePromise extends Promise<Vehicle>, Fragmentable {
@@ -734,12 +710,12 @@ export interface VehiclePromise extends Promise<Vehicle>, Fragmentable {
   route: <T = RoutePromise>() => T;
   predictable: () => Promise<Boolean>;
   runID: () => Promise<String>;
-  latitude: () => Promise<String>;
-  longitude: () => Promise<String>;
+  latitude: () => Promise<Float>;
+  longitude: () => Promise<Float>;
   heading: () => Promise<Int>;
   timeSinceReport: () => Promise<Int>;
-  serverTime: () => Promise<String>;
-  data: () => Promise<Json>;
+  dayOfWeek: () => Promise<String>;
+  dataLoad: () => Promise<Json>;
 }
 
 export interface VehicleSubscription
@@ -751,12 +727,12 @@ export interface VehicleSubscription
   route: <T = RouteSubscription>() => T;
   predictable: () => Promise<AsyncIterator<Boolean>>;
   runID: () => Promise<AsyncIterator<String>>;
-  latitude: () => Promise<AsyncIterator<String>>;
-  longitude: () => Promise<AsyncIterator<String>>;
+  latitude: () => Promise<AsyncIterator<Float>>;
+  longitude: () => Promise<AsyncIterator<Float>>;
   heading: () => Promise<AsyncIterator<Int>>;
   timeSinceReport: () => Promise<AsyncIterator<Int>>;
-  serverTime: () => Promise<AsyncIterator<String>>;
-  data: () => Promise<AsyncIterator<Json>>;
+  dayOfWeek: () => Promise<AsyncIterator<String>>;
+  dataLoad: () => Promise<AsyncIterator<Json>>;
 }
 
 export interface VehicleNullablePromise
@@ -768,12 +744,12 @@ export interface VehicleNullablePromise
   route: <T = RoutePromise>() => T;
   predictable: () => Promise<Boolean>;
   runID: () => Promise<String>;
-  latitude: () => Promise<String>;
-  longitude: () => Promise<String>;
+  latitude: () => Promise<Float>;
+  longitude: () => Promise<Float>;
   heading: () => Promise<Int>;
   timeSinceReport: () => Promise<Int>;
-  serverTime: () => Promise<String>;
-  data: () => Promise<Json>;
+  dayOfWeek: () => Promise<String>;
+  dataLoad: () => Promise<Json>;
 }
 
 export interface RouteEdge {
@@ -814,32 +790,33 @@ export interface RouteConnectionSubscription
   aggregate: <T = AggregateRouteSubscription>() => T;
 }
 
-export interface BatchPayload {
-  count: Long;
+export interface VehicleEdge {
+  node: Vehicle;
+  cursor: String;
 }
 
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
+export interface VehicleEdgePromise extends Promise<VehicleEdge>, Fragmentable {
+  node: <T = VehiclePromise>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
+export interface VehicleEdgeSubscription
+  extends Promise<AsyncIterator<VehicleEdge>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
+  node: <T = VehicleSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface Route {
   id: ID_Output;
   createdAt: DateTimeOutput;
-  name?: String;
+  routeID?: String;
 }
 
 export interface RoutePromise extends Promise<Route>, Fragmentable {
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
-  name: () => Promise<String>;
+  routeID: () => Promise<String>;
   vehicles: <T = FragmentableArray<Vehicle>>(args?: {
     where?: VehicleWhereInput;
     orderBy?: VehicleOrderByInput;
@@ -856,7 +833,7 @@ export interface RouteSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  name: () => Promise<AsyncIterator<String>>;
+  routeID: () => Promise<AsyncIterator<String>>;
   vehicles: <T = Promise<AsyncIterator<VehicleSubscription>>>(args?: {
     where?: VehicleWhereInput;
     orderBy?: VehicleOrderByInput;
@@ -873,7 +850,7 @@ export interface RouteNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
-  name: () => Promise<String>;
+  routeID: () => Promise<String>;
   vehicles: <T = FragmentableArray<Vehicle>>(args?: {
     where?: VehicleWhereInput;
     orderBy?: VehicleOrderByInput;
@@ -913,7 +890,7 @@ export interface RouteSubscriptionPayloadSubscription
 export interface RoutePreviousValues {
   id: ID_Output;
   createdAt: DateTimeOutput;
-  name?: String;
+  routeID?: String;
 }
 
 export interface RoutePreviousValuesPromise
@@ -921,7 +898,7 @@ export interface RoutePreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
-  name: () => Promise<String>;
+  routeID: () => Promise<String>;
 }
 
 export interface RoutePreviousValuesSubscription
@@ -929,7 +906,7 @@ export interface RoutePreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  name: () => Promise<AsyncIterator<String>>;
+  routeID: () => Promise<AsyncIterator<String>>;
 }
 
 export interface PageInfo {
@@ -955,29 +932,20 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface VehicleSubscriptionPayload {
-  mutation: MutationType;
-  node: Vehicle;
-  updatedFields: String[];
-  previousValues: VehiclePreviousValues;
+export interface BatchPayload {
+  count: Long;
 }
 
-export interface VehicleSubscriptionPayloadPromise
-  extends Promise<VehicleSubscriptionPayload>,
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = VehiclePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = VehiclePreviousValuesPromise>() => T;
+  count: () => Promise<Long>;
 }
 
-export interface VehicleSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<VehicleSubscriptionPayload>>,
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = VehicleSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = VehiclePreviousValuesSubscription>() => T;
+  count: () => Promise<AsyncIterator<Long>>;
 }
 
 export interface AggregateVehicle {
@@ -1017,21 +985,29 @@ export interface VehicleConnectionSubscription
   aggregate: <T = AggregateVehicleSubscription>() => T;
 }
 
-export interface VehicleEdge {
+export interface VehicleSubscriptionPayload {
+  mutation: MutationType;
   node: Vehicle;
-  cursor: String;
+  updatedFields: String[];
+  previousValues: VehiclePreviousValues;
 }
 
-export interface VehicleEdgePromise extends Promise<VehicleEdge>, Fragmentable {
-  node: <T = VehiclePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface VehicleEdgeSubscription
-  extends Promise<AsyncIterator<VehicleEdge>>,
+export interface VehicleSubscriptionPayloadPromise
+  extends Promise<VehicleSubscriptionPayload>,
     Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = VehiclePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = VehiclePreviousValuesPromise>() => T;
+}
+
+export interface VehicleSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<VehicleSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
   node: <T = VehicleSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = VehiclePreviousValuesSubscription>() => T;
 }
 
 /*
@@ -1040,16 +1016,16 @@ The `Boolean` scalar type represents `true` or `false`.
 export type Boolean = boolean;
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
 */
-export type Int = number;
+export type Float = number;
 
 export type Long = string;
 
 /*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
-export type String = string;
+export type Int = number;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -1068,6 +1044,11 @@ DateTime scalar output type, which is always a string
 export type DateTimeOutput = string;
 
 export type Json = any;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
 
 /**
  * Model Metadata

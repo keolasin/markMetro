@@ -4,7 +4,18 @@ type Query {
 }
 
 type Mutation {
-    createVehicle(vehicleID: String, route: String, predictable: Boolean, run: String, latitude: String, longitude: String, heading: Int, timeSinceReport: Int): Vehicle
+    createVehicle(
+        vehicleID: String, 
+        route: Route, 
+        predictable: Boolean, 
+        runID: String, 
+        latitude: Float, 
+        longitude: Float, 
+        heading: Int, 
+        timeSinceReport: Int, 
+        dayOfWeek: DayOfWeek, 
+        dataLoad: Json
+    ): Vehicle
 }
 
 type Vehicle {
@@ -17,7 +28,8 @@ type Vehicle {
     longitude: Float
     heading: Int
     timeSinceReport: Int
-    data: Json
+    dayOfWeek: DayOfWeek
+    dataLoad: Json
 }
 
 type Route {
@@ -35,4 +47,14 @@ enum VehicleOrderByInput {
     timeSinceReport_DESC
     createdAt_ASC
     createdAt_DESC
+}
+
+enum DayOfWeek {
+    Sunday
+    Monday
+    Tuesday
+    Wednesday
+    Thursday
+    Friday
+    Saturday
 }

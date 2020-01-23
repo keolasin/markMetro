@@ -27,19 +27,6 @@ const server = new GraphQLServer({
 
 server.start(() => {
     console.log(`Server is up and running on http://localhost:4000`);
-<<<<<<< HEAD
-
-    console.log(`This server will collect data from the LA metro API and store it`);
-
-    /*
-        1. define timeframe for data collection
-        2. define routes to collect from and store in prisma as Route model
-        3. make request to api every 2 seconds for each chosen route
-        4. save each vehicle for each route to the prisma server (linked vehicle model to its respective route)
-        5. dump every week to avoid database size limit (?)
-    */
-    apiRequester();
-=======
     console.log(`This server will collect vehicle location data from a given metro and list of routes and store it`);
     
     // using cron to make a request every minute
@@ -47,6 +34,5 @@ server.start(() => {
       // making requests to the provided metro and array of desired routes
       routeRequester(routeList, metro);
     });
->>>>>>> 0a152d809060fa7ea633ecc02e8f2f8c7433e6e9
     console.log(`Data collection complete.`);
 });

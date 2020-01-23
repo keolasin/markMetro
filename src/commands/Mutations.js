@@ -1,22 +1,41 @@
 const gql = require('graphql-tag');
 
 const ADD_VEHICLE = gql`
-    mutation CreateVehicle( $vehicleID: String, $route: String,$predictable: Boolean, $run: String, $latitude: Float, $longitude: Float, $heading: Int, $timeSinceReport: Int){
+    mutation CreateVehicle( 
+        $vehicleID: String, 
+        $route: ID!, 
+        $predictable: Boolean, 
+        $runID: String, 
+        $latitude: Float, 
+        $longitude: Float, 
+        $heading: Int, 
+        $timeSinceReport: Int, 
+        $dataLoad: Json,
+    ) {
         createVehicle(
-            vehicleID: "6092",
-            route: "20",
-            predictable: true,
-            run: "20_691_0",
-            latitude: 34.013706,
-            longitude: -118.490067,
-            heading: 334,
-            timeSinceReport: 78
-        ){
-            route
+            vehicleID: $vehicleID,
+            route: $route,
+            predictable: $predictable,
+            runID: $runID,
+            latitude: $latitude,
+            longitude: $longitude,
+            heading: $heading,
+            timeSinceReport: $timeSinceReport
+            dataLoad: $dataLoad
+        ) {
+            latitude,
+            longitude
         }
     }
 `;
 
+const ADD_ROUTE = gql`
+    mutation CreateRoute($routeID: String) {
+        routeID
+    }
+`;
+
 module.exports = {
-    ADD_VEHICLE
+    ADD_VEHICLE,
+    ADD_ROUTE
 }
