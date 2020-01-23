@@ -17,6 +17,8 @@ type BatchPayload {
 
 scalar DateTime
 
+scalar Json
+
 scalar Long
 
 type Mutation {
@@ -63,7 +65,8 @@ type Query {
 
 type Route {
   id: ID!
-  name: String!
+  createdAt: DateTime!
+  name: String
   vehicles(where: VehicleWhereInput, orderBy: VehicleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vehicle!]
 }
 
@@ -75,7 +78,7 @@ type RouteConnection {
 
 input RouteCreateInput {
   id: ID
-  name: String!
+  name: String
   vehicles: VehicleCreateManyWithoutRouteInput
 }
 
@@ -86,7 +89,7 @@ input RouteCreateOneWithoutVehiclesInput {
 
 input RouteCreateWithoutVehiclesInput {
   id: ID
-  name: String!
+  name: String
 }
 
 type RouteEdge {
@@ -97,13 +100,16 @@ type RouteEdge {
 enum RouteOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
   name_ASC
   name_DESC
 }
 
 type RoutePreviousValues {
   id: ID!
-  name: String!
+  createdAt: DateTime!
+  name: String
 }
 
 type RouteSubscriptionPayload {
@@ -166,6 +172,14 @@ input RouteWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -200,15 +214,16 @@ type Subscription {
 type Vehicle {
   id: ID!
   createdAt: DateTime!
-  vehicle_ID: Int
+  vehicleID: String
   route: Route
   predictable: Boolean
-  run: String!
+  runID: String
   latitude: String
   longitude: String
   heading: Int
-  seconds_since_report: Int
+  timeSinceReport: Int
   serverTime: String
+  data: Json
 }
 
 type VehicleConnection {
@@ -219,15 +234,16 @@ type VehicleConnection {
 
 input VehicleCreateInput {
   id: ID
-  vehicle_ID: Int
+  vehicleID: String
   route: RouteCreateOneWithoutVehiclesInput
   predictable: Boolean
-  run: String!
+  runID: String
   latitude: String
   longitude: String
   heading: Int
-  seconds_since_report: Int
+  timeSinceReport: Int
   serverTime: String
+  data: Json
 }
 
 input VehicleCreateManyWithoutRouteInput {
@@ -237,14 +253,15 @@ input VehicleCreateManyWithoutRouteInput {
 
 input VehicleCreateWithoutRouteInput {
   id: ID
-  vehicle_ID: Int
+  vehicleID: String
   predictable: Boolean
-  run: String!
+  runID: String
   latitude: String
   longitude: String
   heading: Int
-  seconds_since_report: Int
+  timeSinceReport: Int
   serverTime: String
+  data: Json
 }
 
 type VehicleEdge {
@@ -257,35 +274,38 @@ enum VehicleOrderByInput {
   id_DESC
   createdAt_ASC
   createdAt_DESC
-  vehicle_ID_ASC
-  vehicle_ID_DESC
+  vehicleID_ASC
+  vehicleID_DESC
   predictable_ASC
   predictable_DESC
-  run_ASC
-  run_DESC
+  runID_ASC
+  runID_DESC
   latitude_ASC
   latitude_DESC
   longitude_ASC
   longitude_DESC
   heading_ASC
   heading_DESC
-  seconds_since_report_ASC
-  seconds_since_report_DESC
+  timeSinceReport_ASC
+  timeSinceReport_DESC
   serverTime_ASC
   serverTime_DESC
+  data_ASC
+  data_DESC
 }
 
 type VehiclePreviousValues {
   id: ID!
   createdAt: DateTime!
-  vehicle_ID: Int
+  vehicleID: String
   predictable: Boolean
-  run: String!
+  runID: String
   latitude: String
   longitude: String
   heading: Int
-  seconds_since_report: Int
+  timeSinceReport: Int
   serverTime: String
+  data: Json
 }
 
 input VehicleScalarWhereInput {
@@ -311,30 +331,36 @@ input VehicleScalarWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  vehicle_ID: Int
-  vehicle_ID_not: Int
-  vehicle_ID_in: [Int!]
-  vehicle_ID_not_in: [Int!]
-  vehicle_ID_lt: Int
-  vehicle_ID_lte: Int
-  vehicle_ID_gt: Int
-  vehicle_ID_gte: Int
+  vehicleID: String
+  vehicleID_not: String
+  vehicleID_in: [String!]
+  vehicleID_not_in: [String!]
+  vehicleID_lt: String
+  vehicleID_lte: String
+  vehicleID_gt: String
+  vehicleID_gte: String
+  vehicleID_contains: String
+  vehicleID_not_contains: String
+  vehicleID_starts_with: String
+  vehicleID_not_starts_with: String
+  vehicleID_ends_with: String
+  vehicleID_not_ends_with: String
   predictable: Boolean
   predictable_not: Boolean
-  run: String
-  run_not: String
-  run_in: [String!]
-  run_not_in: [String!]
-  run_lt: String
-  run_lte: String
-  run_gt: String
-  run_gte: String
-  run_contains: String
-  run_not_contains: String
-  run_starts_with: String
-  run_not_starts_with: String
-  run_ends_with: String
-  run_not_ends_with: String
+  runID: String
+  runID_not: String
+  runID_in: [String!]
+  runID_not_in: [String!]
+  runID_lt: String
+  runID_lte: String
+  runID_gt: String
+  runID_gte: String
+  runID_contains: String
+  runID_not_contains: String
+  runID_starts_with: String
+  runID_not_starts_with: String
+  runID_ends_with: String
+  runID_not_ends_with: String
   latitude: String
   latitude_not: String
   latitude_in: [String!]
@@ -371,14 +397,14 @@ input VehicleScalarWhereInput {
   heading_lte: Int
   heading_gt: Int
   heading_gte: Int
-  seconds_since_report: Int
-  seconds_since_report_not: Int
-  seconds_since_report_in: [Int!]
-  seconds_since_report_not_in: [Int!]
-  seconds_since_report_lt: Int
-  seconds_since_report_lte: Int
-  seconds_since_report_gt: Int
-  seconds_since_report_gte: Int
+  timeSinceReport: Int
+  timeSinceReport_not: Int
+  timeSinceReport_in: [Int!]
+  timeSinceReport_not_in: [Int!]
+  timeSinceReport_lt: Int
+  timeSinceReport_lte: Int
+  timeSinceReport_gt: Int
+  timeSinceReport_gte: Int
   serverTime: String
   serverTime_not: String
   serverTime_in: [String!]
@@ -417,37 +443,40 @@ input VehicleSubscriptionWhereInput {
 }
 
 input VehicleUpdateInput {
-  vehicle_ID: Int
+  vehicleID: String
   route: RouteUpdateOneWithoutVehiclesInput
   predictable: Boolean
-  run: String
+  runID: String
   latitude: String
   longitude: String
   heading: Int
-  seconds_since_report: Int
+  timeSinceReport: Int
   serverTime: String
+  data: Json
 }
 
 input VehicleUpdateManyDataInput {
-  vehicle_ID: Int
+  vehicleID: String
   predictable: Boolean
-  run: String
+  runID: String
   latitude: String
   longitude: String
   heading: Int
-  seconds_since_report: Int
+  timeSinceReport: Int
   serverTime: String
+  data: Json
 }
 
 input VehicleUpdateManyMutationInput {
-  vehicle_ID: Int
+  vehicleID: String
   predictable: Boolean
-  run: String
+  runID: String
   latitude: String
   longitude: String
   heading: Int
-  seconds_since_report: Int
+  timeSinceReport: Int
   serverTime: String
+  data: Json
 }
 
 input VehicleUpdateManyWithoutRouteInput {
@@ -468,14 +497,15 @@ input VehicleUpdateManyWithWhereNestedInput {
 }
 
 input VehicleUpdateWithoutRouteDataInput {
-  vehicle_ID: Int
+  vehicleID: String
   predictable: Boolean
-  run: String
+  runID: String
   latitude: String
   longitude: String
   heading: Int
-  seconds_since_report: Int
+  timeSinceReport: Int
   serverTime: String
+  data: Json
 }
 
 input VehicleUpdateWithWhereUniqueWithoutRouteInput {
@@ -512,31 +542,37 @@ input VehicleWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  vehicle_ID: Int
-  vehicle_ID_not: Int
-  vehicle_ID_in: [Int!]
-  vehicle_ID_not_in: [Int!]
-  vehicle_ID_lt: Int
-  vehicle_ID_lte: Int
-  vehicle_ID_gt: Int
-  vehicle_ID_gte: Int
+  vehicleID: String
+  vehicleID_not: String
+  vehicleID_in: [String!]
+  vehicleID_not_in: [String!]
+  vehicleID_lt: String
+  vehicleID_lte: String
+  vehicleID_gt: String
+  vehicleID_gte: String
+  vehicleID_contains: String
+  vehicleID_not_contains: String
+  vehicleID_starts_with: String
+  vehicleID_not_starts_with: String
+  vehicleID_ends_with: String
+  vehicleID_not_ends_with: String
   route: RouteWhereInput
   predictable: Boolean
   predictable_not: Boolean
-  run: String
-  run_not: String
-  run_in: [String!]
-  run_not_in: [String!]
-  run_lt: String
-  run_lte: String
-  run_gt: String
-  run_gte: String
-  run_contains: String
-  run_not_contains: String
-  run_starts_with: String
-  run_not_starts_with: String
-  run_ends_with: String
-  run_not_ends_with: String
+  runID: String
+  runID_not: String
+  runID_in: [String!]
+  runID_not_in: [String!]
+  runID_lt: String
+  runID_lte: String
+  runID_gt: String
+  runID_gte: String
+  runID_contains: String
+  runID_not_contains: String
+  runID_starts_with: String
+  runID_not_starts_with: String
+  runID_ends_with: String
+  runID_not_ends_with: String
   latitude: String
   latitude_not: String
   latitude_in: [String!]
@@ -573,14 +609,14 @@ input VehicleWhereInput {
   heading_lte: Int
   heading_gt: Int
   heading_gte: Int
-  seconds_since_report: Int
-  seconds_since_report_not: Int
-  seconds_since_report_in: [Int!]
-  seconds_since_report_not_in: [Int!]
-  seconds_since_report_lt: Int
-  seconds_since_report_lte: Int
-  seconds_since_report_gt: Int
-  seconds_since_report_gte: Int
+  timeSinceReport: Int
+  timeSinceReport_not: Int
+  timeSinceReport_in: [Int!]
+  timeSinceReport_not_in: [Int!]
+  timeSinceReport_lt: Int
+  timeSinceReport_lte: Int
+  timeSinceReport_gt: Int
+  timeSinceReport_gte: Int
   serverTime: String
   serverTime_not: String
   serverTime_in: [String!]

@@ -10,7 +10,7 @@ function apiRequester(){
         console.log(res);
         if (res.status === 200){
             console.log('Success!');
-            console.log(res.data.items);
+            console.log(res.data.items); // the actual data
         }
         else {
             console.log(res.status);
@@ -19,6 +19,8 @@ function apiRequester(){
     .catch(error => {
         console.log('Request error to metro API!', error);
     });
+
+    // ping every 2 seconds
     setInterval(() => {
         console.log('hello!');
     }, 2000)

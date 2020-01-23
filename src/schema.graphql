@@ -10,13 +10,20 @@ type Mutation {
 type Vehicle {
     id: ID!
     vehicleID: String
-    route: String
+    route: Route
     predictable: Boolean
     runID: String
     latitude: Float
     longitude: Float
     heading: Int
     timeSinceReport: Int
+    data: Json
+}
+
+type Route {
+    id: ID!
+    routeID: String
+    vehicles: [Vehicle]
 }
 
 enum VehicleOrderByInput {

@@ -1,19 +1,21 @@
 type Vehicle {
     id: ID! @id
     createdAt: DateTime! @createdAt
-    vehicle_ID: Int
+    vehicleID: String
     route: Route
     predictable: Boolean
-    run: String!
+    runID: String
     latitude: String
     longitude: String
     heading: Int
-    seconds_since_report: Int
+    timeSinceReport: Int
     serverTime: String
+    data: Json
 }
 
 type Route {
     id: ID! @id
-    name: String!
-    vehicles: [Vehicle!] @relation(onDelete: CASCADE)
+    createdAt: DateTime! @createdAt
+    name: String
+    vehicles: [Vehicle] @relation(onDelete: CASCADE)
 }
