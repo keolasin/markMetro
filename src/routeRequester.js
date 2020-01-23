@@ -4,7 +4,7 @@ let date = new Date();
 
 function routeRequester(routes, agency){
   // show time
-  console.log('Making request, date and time is: ', date.toLocaleString());
+  console.log('Making request, date and time is: ', date.toLocaleString("en-us", {timeZone: "America/Los_Angeles"}));
   
   // loop through all the provided routes for specific metro agency
   routes.forEach(route => {
@@ -15,7 +15,7 @@ function routeRequester(routes, agency){
     })
     .then( res => {
       // store that route info in our database
-      console.log('Request completed at: ', date.toLocaleString());
+      console.log('Request completed at: ', date.toLocaleString("en-us", {timeZone: "America/Los_Angeles"}));
       console.log(`\nCalled route ${route} with items: `);
       console.log(res.data.items, '\n');
     })
