@@ -1,7 +1,5 @@
 const axios = require('axios');
 
-let routeList = [2, 4, 10, 20];
-let metro = 'lametro';
 let date = new Date();
 
 function routeRequester(routes, agency){
@@ -29,5 +27,5 @@ function routeRequester(routes, agency){
 }
 
 module.exports = {
-    apiRequester
+    routeRequester
 }
