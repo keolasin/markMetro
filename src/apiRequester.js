@@ -2,8 +2,12 @@ const axios = require('axios');
 
 let routeList = [2, 4, 10, 20];
 let metro = 'lametro';
+let date = new Date();
 
-function apiRequester(routes, agency){
+function routeRequester(routes, agency){
+  // show time
+  console.log('Making request, date and time is: ', date.toLocaleString());
+  
   // loop through all the provided routes for specific metro agency
   routes.forEach(route => {
     // make call via axios to api for specific route/agency
@@ -13,6 +17,7 @@ function apiRequester(routes, agency){
     })
     .then( res => {
       // store that route info in our database
+      console.log('Request completed at: ', date.toLocaleString());
       console.log(`\nCalled route ${route} with items: `);
       console.log(res.data.items, '\n');
     })
@@ -22,10 +27,6 @@ function apiRequester(routes, agency){
     });
   });
 }
-
-let interval = setInterval(()=> {
-    requestTimer(routeList, metro)
-  }, 60*1000) // 1 minute requests
 
 module.exports = {
     apiRequester
